@@ -19,7 +19,7 @@ const DreamAnalysis: React.FC<DreamAnalysisProps> = ({ dreamContent }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer 8e604ef8dd8043d980503c6c63a01ef9`
+          'Authorization': 'Bearer 8e604ef8dd8043d980503c6c63a01ef9'
         },
         body: JSON.stringify({
           model: 'deepseek-chat',
@@ -32,12 +32,15 @@ const DreamAnalysis: React.FC<DreamAnalysisProps> = ({ dreamContent }) => {
               role: 'user',
               content: `Please analyze this dream from a philosophical perspective: ${dreamContent}`
             }
-          ]
+          ],
+          temperature: 0.7,
+          max_tokens: 500
         })
       });
 
       if (!response.ok) {
-        throw new Error('Failed to analyze dream');
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || 'Failed to analyze dream');
       }
 
       const data = await response.json();
