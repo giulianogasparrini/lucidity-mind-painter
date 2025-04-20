@@ -15,14 +15,14 @@ const DreamAnalysis: React.FC<DreamAnalysisProps> = ({ dreamContent }) => {
   const analyzeDream = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+      const response = await fetch('https://api.aimlapi.com/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer 8e604ef8dd8043d980503c6c63a01ef9'
         },
         body: JSON.stringify({
-          model: 'deepseek-chat',
+          model: 'gpt-4o-mini',
           messages: [
             {
               role: 'system',
@@ -32,9 +32,7 @@ const DreamAnalysis: React.FC<DreamAnalysisProps> = ({ dreamContent }) => {
               role: 'user',
               content: `Please analyze this dream from a philosophical perspective: ${dreamContent}`
             }
-          ],
-          temperature: 0.7,
-          max_tokens: 500
+          ]
         })
       });
 
