@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import DreamCard from './DreamCard';
 import DreamEntryForm from './DreamEntryForm';
 import DreamInsight from './DreamInsight';
+import DreamAnalysis from './DreamAnalysis';
 
 interface Dream {
   id: string;
@@ -50,7 +50,6 @@ const DreamJournal: React.FC = () => {
 
   const selectedDream = dreams.find(dream => dream.id === selectedDreamId);
 
-  // Mock insights based on selected dream
   const dreamInsights = selectedDream ? [
     {
       title: 'Recurring Themes',
@@ -68,14 +67,13 @@ const DreamJournal: React.FC = () => {
 
   return (
     <div className="w-full max-w-3xl mx-auto p-4">
-      {/* New Dream Entry Form */}
       <div className="mb-8">
         <DreamEntryForm onSubmit={handleNewDream} />
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <h2 className="text-xl font-semibold mb-4 text-dream-silver">Your Dream Journal</h2>
+          <h2 className="text-xl font-semibold mb-4 text-white">Your Dream Journal</h2>
           <div className="space-y-4">
             {dreams.map(dream => (
               <DreamCard
@@ -93,16 +91,17 @@ const DreamJournal: React.FC = () => {
         <div>
           {selectedDream ? (
             <>
-              <h2 className="text-xl font-semibold mb-4 text-dream-silver">Dream Details</h2>
+              <h2 className="text-xl font-semibold mb-4 text-white">Dream Details</h2>
               <div className="dream-card p-5 mb-6">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-semibold text-dream-darkpurple">{selectedDream.title}</h3>
-                  <span className="text-sm text-dream-blue">{selectedDream.date}</span>
+                  <h3 className="text-xl font-semibold text-white">{selectedDream.title}</h3>
+                  <span className="text-sm text-dream-silver">{selectedDream.date}</span>
                 </div>
-                <p className="text-dream-midnight mb-3">{selectedDream.content}</p>
-                <div className="text-sm text-dream-blue">Mood: {selectedDream.mood}</div>
+                <p className="text-white mb-3">{selectedDream.content}</p>
+                <div className="text-sm text-dream-silver">Mood: {selectedDream.mood}</div>
               </div>
               
+              <DreamAnalysis dreamContent={selectedDream.content} />
               <DreamInsight insights={dreamInsights} />
             </>
           ) : (
